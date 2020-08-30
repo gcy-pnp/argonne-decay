@@ -1,0 +1,6 @@
+*.root
+*Dict*
+*.o
+*.out
+fit.c
+*~
