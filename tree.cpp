@@ -47,10 +47,11 @@ void tree::Loop(TTree *opt_)
     if (abs(xesum - yesum) > 500)
       continue;
 
+    pde = 0;
     if ((*br_de).size() > 0)
       pde = (*br_de)[0].e;
 
-    if ((mesum > 10 || pde > 3000) && desum > 10000 && desum < 50000)
+    if ((mesum > 10 || pde > 4000) && desum > 10000 && desum < 50000)
     {
       Recoil re;
       re.e = desum;
@@ -72,7 +73,7 @@ void tree::Loop(TTree *opt_)
       }
       maprec.insert(make_pair(re.ts, re));
     }
-    if (mesum < 10 && pde < 3000 && desum < 10000)
+    if (mesum < 10 && pde < 1000 && desum < 10000)
     { //decay
       Decay de;
       de.e = desum;
@@ -95,6 +96,8 @@ void tree::Loop(TTree *opt_)
     if (jentry % 10000 == 0)
       cout << "Process " << jentry << " / " << nentries << endl;
   }
+  cout << "recoil" << maprec.size() << "\t"
+       << "decay" << mapdec.size() << endl;
 
   ULong64_t us = 100;
   ULong64_t ms = 1000 * us;
@@ -117,12 +120,6 @@ void tree::Loop(TTree *opt_)
       if (delx > 0 || dely > 0)
         continue;
       ic->second.dt = Long64_t(ic->first - ia->first) / (1.0e5);
-      ic->second.flag = 0;
-      if (ic->second.dt < 0)
-      {
-        ic->second.dt = -ic->second.dt;
-        ic->second.flag = 1
-      }
       dvec.push_back(ic->second);
     }
 
@@ -135,7 +132,7 @@ void tree::Loop(TTree *opt_)
       cout << "Process " << i << " / " << maprec.size() << endl;
     i++;
   }
-  
+
   cout << endl;
 }
 
