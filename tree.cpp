@@ -72,7 +72,8 @@ void tree::Loop(TTree *opt_)
         re.gts.push_back((*br_gs)[i].ts);
       }
       maprec.insert(make_pair(re.ts, re));
-    }
+    }  
+
     if (mesum < 10 && pde < 1000 && desum < 10000)
     { //decay
       Decay de;
